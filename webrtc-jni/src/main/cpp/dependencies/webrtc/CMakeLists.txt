@@ -140,6 +140,16 @@ execute_command(
 	WORKING_DIRECTORY "${WEBRTC_DIR}"
 )
 
+message(STATUS "WebRTC: checkout \"${WEBRTC_BRANCH}\"")
+execute_command(
+	COMMAND git checkout .
+	WORKING_DIRECTORY "${WEBRTC_SRC}"
+)
+execute_command(
+	COMMAND git checkout ${WEBRTC_BRANCH}
+	WORKING_DIRECTORY "${WEBRTC_SRC}"
+)
+
 # Patch DEPS to reduce time running gclient
 file(READ "${WEBRTC_SRC}/DEPS" DEPS_CONTENT)
 string(REPLACE
@@ -153,16 +163,6 @@ message(STATUS "WebRTC: sync")
 execute_command(
 	COMMAND gclient sync
 	WORKING_DIRECTORY "${WEBRTC_DIR}"
-)
-
-message(STATUS "WebRTC: checkout \"${WEBRTC_BRANCH}\"")
-execute_command(
-	COMMAND git checkout .
-	WORKING_DIRECTORY "${WEBRTC_SRC}"
-)
-execute_command(
-	COMMAND git checkout ${WEBRTC_BRANCH}
-	WORKING_DIRECTORY "${WEBRTC_SRC}"
 )
 
 message(STATUS "WebRTC: generate")
