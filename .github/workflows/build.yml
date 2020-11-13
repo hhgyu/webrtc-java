@@ -62,3 +62,13 @@ jobs:
 
       - name: Test
         run: mvn -B jar:jar surefire:test
+    
+      - name: Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: webrtc-java
+          path: |
+            ${{ github.workspace }}/webrtc-jni/target/webrtc-java-*jar
+            ${{ github.workspace }}/webrtc/target/webrtc-java-*.jar
+            ${{ github.workspace }}/webrtc-demo/webrtc-demo-api/target/webrtc-java-demo-api-*.jar
+            ${{ github.workspace }}/webrtc-demo/webrtc-demo-javafx/target/webrtc-java-demo-javafx-*.jar
