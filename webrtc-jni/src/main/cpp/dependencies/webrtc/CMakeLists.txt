@@ -161,7 +161,7 @@ file(WRITE "${WEBRTC_SRC}/DEPS" "${DEPS_CONTENT}")
 
 message(STATUS "WebRTC: sync")
 execute_command(
-	COMMAND gclient sync
+	COMMAND gclient sync --no-history
 	WORKING_DIRECTORY "${WEBRTC_DIR}"
 )
 
