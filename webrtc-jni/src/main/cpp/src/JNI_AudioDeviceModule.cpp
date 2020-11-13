@@ -33,7 +33,6 @@ JNIEXPORT void JNICALL Java_dev_onvoid_webrtc_media_audio_AudioDeviceModule_init
 (JNIEnv * env, jobject caller)
 {
 	webrtc::AudioDeviceModule * audioModule = GetHandle<webrtc::AudioDeviceModule>(env, caller);
-	
 	CHECK_HANDLE(audioModule);
 
 	if (audioModule->InitPlayout() != 0) {
