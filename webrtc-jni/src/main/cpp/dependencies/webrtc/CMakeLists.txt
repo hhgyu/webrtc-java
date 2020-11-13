@@ -122,12 +122,19 @@ if(EXISTS "${WEBRTC_LIB_PATH}" OR EXISTS "${WEBRTC_LIB_PATH_INSTALLED}")
 endif()
 
 if(NOT EXISTS "${WEBRTC_SRC_DIR}/depot_tools")
-	message(STATUS "WebRTC: fetch depot tools")
-	file(MAKE_DIRECTORY ${WEBRTC_SRC_DIR})
-	execute_command(
-		COMMAND git clone --depth 1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
-		WORKING_DIRECTORY "${WEBRTC_SRC_DIR}"
-	)
+	if(WIN)
+		message(STATUS "WebRTC: download depot tools")
+		file(DOWNLOAD https://storage.googleapis.com/chrome-infra/depot_tools.zip ${WEBRTC_SRC_DIR}/depot_tools.zip)
+		file(ARCHIVE_EXTRACT INPUT depot_tools.zip DESTINATION ${WEBRTC_SRC_DIR}/depot_tools)
+		file(REMOVE ${WEBRTC_SRC_DIR}/depot_tools.zip)
+	else()
+		message(STATUS "WebRTC: fetch depot tools")
+		file(MAKE_DIRECTORY ${WEBRTC_SRC_DIR})
+		execute_command(
+			COMMAND git clone --depth 1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
+			WORKING_DIRECTORY "${WEBRTC_SRC_DIR}"
+		)
+	endif()
 endif()
 
 set(ENV{PATH} "${WEBRTC_SRC_DIR}/depot_tools${PATH_SEP}$ENV{PATH}")
