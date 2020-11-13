@@ -122,7 +122,7 @@ if(EXISTS "${WEBRTC_LIB_PATH}" OR EXISTS "${WEBRTC_LIB_PATH_INSTALLED}")
 endif()
 
 if(NOT EXISTS "${WEBRTC_SRC_DIR}/depot_tools")
-	if(WIN)
+	if(WIN32)
 		message(STATUS "WebRTC: download depot tools")
 		file(DOWNLOAD https://storage.googleapis.com/chrome-infra/depot_tools.zip ${WEBRTC_SRC_DIR}/depot_tools.zip)
 		file(ARCHIVE_EXTRACT INPUT depot_tools.zip DESTINATION ${WEBRTC_SRC_DIR}/depot_tools)
